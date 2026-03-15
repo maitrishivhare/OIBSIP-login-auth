@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #1a1a2e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      color: white;
+    }
+    .card {
+      background: #16213e;
+      padding: 50px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    h1 { color: #00d084; margin-bottom: 10px; }
+    p { color: #aaa; margin-bottom: 24px; }
+    button {
+      padding: 10px 30px;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    button:hover { background: #e05555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🎉 Welcome, <span id="user"></span>!</h1>
+    <p>You have successfully accessed the secured dashboard.</p>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    // Fetch logged-in user info
+    fetch('/me')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('user').textContent = data.username;
+      });
+
+    async function logout() {
+      await fetch('/logout', { method: 'POST' });
+      window.location.href = '/';
+    }
+  </script>
+</body>
+</html>
