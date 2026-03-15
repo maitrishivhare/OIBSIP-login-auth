@@ -17,6 +17,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ✅ REGISTER Route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
 
